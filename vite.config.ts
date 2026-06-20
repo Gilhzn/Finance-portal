@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
-// On GitHub Pages the site is served from /finance-portal/, so use that as the
-// production base. Local dev/preview keep the root base.
+// Use a relative base in production so the build works under any GitHub Pages
+// project path (e.g. /Finance-portal/) regardless of repo-name casing.
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/finance-portal/' : '/',
+  base: command === 'build' ? './' : '/',
   plugins: [react(), tailwindcss()],
 }));
