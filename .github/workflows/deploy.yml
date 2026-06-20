@@ -36,6 +36,10 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          # Enable GitHub Pages automatically (uses the pages: write token),
+          # so no manual repo-settings toggle is required.
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
