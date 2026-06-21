@@ -107,7 +107,7 @@ export default function DeliveryView({ onOpenInvoice }: { onOpenInvoice: (inv: I
               <Card className="h-full p-5">
                 <div className="flex items-start justify-between">
                   <div>
-                    <div className="num text-lg font-black text-brand-950">{note.id}</div>
+                    <div className="num text-lg font-extrabold text-brand-950">{note.id}</div>
                     <div className="num text-xs text-brand-500">{formatDate(note.date)}</div>
                   </div>
                   <DeliveryBadge status={note.status} />
@@ -117,30 +117,32 @@ export default function DeliveryView({ onOpenInvoice }: { onOpenInvoice: (inv: I
 
                 <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-brand-600">
                   <span className="flex items-center gap-1.5">
-                    <User className="h-3.5 w-3.5 text-brand-400" /> {note.driverName}
+                    <User className="h-3.5 w-3.5 shrink-0 text-brand-400" /> {note.driverName}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Car className="h-3.5 w-3.5 text-brand-400" />
+                    <Car className="h-3.5 w-3.5 shrink-0 text-brand-400" />
                     <span className="num">{note.vehiclePlate}</span>
                   </span>
                   <span className="col-span-2 flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 text-brand-400" /> {note.destination}
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-brand-400" /> {note.destination}
                   </span>
                 </div>
 
                 <div className="mt-4 flex items-center justify-between border-t border-brand-100 pt-3">
                   {note.status === 'signed' ? (
-                    <div className="flex items-center gap-1.5 text-xs text-emerald-600">
-                      <PenLine className="h-3.5 w-3.5" />
-                      נחתם ע"י <span className="font-bold">{note.signedBy}</span>
+                    <div className="flex min-w-0 items-center gap-1.5 text-xs text-emerald-600">
+                      <PenLine className="h-3.5 w-3.5 shrink-0" />
+                      <span className="truncate">
+                        נחתם ע"י <span className="font-bold">{note.signedBy}</span>
+                      </span>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-1.5 text-xs text-orange-600">
-                      <PenLine className="h-3.5 w-3.5" />
-                      ממתין לחתימת נציג
+                    <div className="flex min-w-0 items-center gap-1.5 text-xs text-orange-600">
+                      <PenLine className="h-3.5 w-3.5 shrink-0" />
+                      <span className="truncate">ממתין לחתימת נציג</span>
                     </div>
                   )}
-                  <span className="num text-xs font-semibold text-brand-500">
+                  <span className="num shrink-0 text-xs font-semibold text-brand-500">
                     {note.itemCount} פריטים
                   </span>
                 </div>

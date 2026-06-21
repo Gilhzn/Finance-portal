@@ -84,10 +84,10 @@ export default function LedgerView({ onOpenInvoice }: { onOpenInvoice: (inv: Inv
             </tbody>
             <tfoot>
               <tr className="border-t-2 border-brand-900 bg-brand-50">
-                <td colSpan={5} className="px-4 py-3 text-left text-sm font-black text-brand-950">
+                <td colSpan={5} className="px-4 py-3 text-left text-sm font-extrabold text-brand-950">
                   יתרת סגירה
                 </td>
-                <td className="num px-4 py-3 text-left text-base font-black text-brand-950">
+                <td className="num px-4 py-3 text-left text-base font-extrabold text-brand-950">
                   {formatCurrency(LEDGER_BALANCE)}
                 </td>
               </tr>

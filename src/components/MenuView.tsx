@@ -53,12 +53,12 @@ export default function MenuView({
         <Card className="overflow-hidden">
           <div className="bg-gradient-to-br from-brand-800 via-brand-900 to-brand-950 p-6 text-white">
             <div className="text-xs font-semibold text-brand-300">חשבון ראשי</div>
-            <div className="mt-1 text-xl font-black">{ACCOUNT.name}</div>
+            <div className="mt-1 text-xl font-extrabold">{ACCOUNT.name}</div>
             <div className="num mt-0.5 text-xs text-brand-300">ע.מ {ACCOUNT.taxId}</div>
 
             <div className="mt-5 rounded-2xl bg-brand-900 p-4">
               <div className="text-xs font-medium text-brand-300">יתרה פתוחה כוללת (כל הלקוחות)</div>
-              <div className="num mt-1 text-3xl font-black text-white">
+              <div className="num mt-1 text-2xl font-bold text-white sm:text-3xl">
                 {formatCurrency(TOTAL_OPEN_BALANCE)}
               </div>
               <div className="mt-2 text-xs text-rose-300">
@@ -84,12 +84,12 @@ export default function MenuView({
                   onClick={() => onOpenInvoice(inv)}
                   className="flex w-full items-center justify-between rounded-xl border border-brand-100 bg-brand-50/50 px-3 py-2.5 text-right transition-colors hover:border-brand-200 hover:bg-brand-50"
                 >
-                  <div className="min-w-0">
-                    <div className="num text-sm font-bold text-brand-900">{inv.id}</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="num truncate text-sm font-bold text-brand-900">{inv.id}</div>
                     <div className="truncate text-xs text-brand-500">{inv.customerName}</div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="num text-sm font-extrabold text-brand-950">
+                  <div className="flex shrink-0 items-center gap-2">
+                    <span className="num text-sm font-bold text-brand-950">
                       {formatCurrency(inv.openAmount)}
                     </span>
                     <StatusBadge status={inv.status} />
@@ -127,7 +127,7 @@ export default function MenuView({
                   )}
                 </div>
                 <div>
-                  <div className="text-lg font-black text-brand-950">{tile.label}</div>
+                  <div className="text-lg font-extrabold text-brand-950">{tile.label}</div>
                   <div className="mt-0.5 flex items-center gap-1 text-xs font-medium text-brand-500 transition-all group-hover:gap-2 group-hover:text-brand-700">
                     {tile.desc}
                     <ArrowLeft className="h-3.5 w-3.5" />

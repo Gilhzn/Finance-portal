@@ -180,7 +180,7 @@ export default function CatalogView() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-lg font-black text-brand-950">סל הרכש</h3>
+                <h3 className="text-lg font-extrabold text-brand-950">סל הרכש</h3>
                 <button
                   onClick={() => setCartOpen(false)}
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-500"
@@ -243,18 +243,18 @@ function ProductCard({
         </div>
         <p className="mt-1.5 line-clamp-2 text-xs text-brand-500">{item.description}</p>
 
-        <div className="mt-3 flex items-center justify-between">
-          <div>
-            <div className="num text-lg font-black text-brand-950">{formatCurrency(item.price)}</div>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <div className="min-w-0">
+            <div className="num truncate text-lg font-bold text-brand-950">{formatCurrency(item.price)}</div>
             <div className="num text-[11px] text-brand-400">מלאי: {item.inStock}</div>
           </div>
           {qty === 0 ? (
-            <PrimaryButton onClick={() => onAdd(item.sku)} className="!px-3 !py-2 text-xs">
+            <PrimaryButton onClick={() => onAdd(item.sku)} className="shrink-0 !px-3 !py-2 text-xs">
               <Plus className="h-4 w-4" />
               הוסף
             </PrimaryButton>
           ) : (
-            <div className="flex items-center gap-2 rounded-xl bg-brand-900 px-2 py-1 text-white">
+            <div className="flex shrink-0 items-center gap-2 rounded-xl bg-brand-900 px-2 py-1 text-white">
               <button onClick={() => onAdd(item.sku)} className="p-1 hover:text-brand-300" aria-label="הוסף">
                 <Plus className="h-4 w-4" />
               </button>
@@ -341,7 +341,7 @@ function CartPanel({
               <span>מע"מ 17%</span>
               <span className="num font-semibold">{formatCurrency(vat)}</span>
             </div>
-            <div className="flex justify-between border-t-2 border-brand-900 pt-2 text-base font-black text-brand-950">
+            <div className="flex justify-between border-t-2 border-brand-900 pt-2 text-base font-extrabold text-brand-950">
               <span>סה"כ לתשלום</span>
               <span className="num">{formatCurrency(total)}</span>
             </div>

@@ -94,7 +94,7 @@ export default function App() {
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-0.5 md:flex">
+          <nav className="hidden items-center gap-0.5 lg:flex">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
               const active = view === item.key;
@@ -127,7 +127,7 @@ export default function App() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileNav((s) => !s)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-white hover:bg-brand-900 md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-white hover:bg-brand-900 lg:hidden"
             aria-label="תפריט"
           >
             {mobileNav ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -141,7 +141,7 @@ export default function App() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden border-t border-brand-900 bg-brand-950 md:hidden"
+              className="overflow-hidden border-t border-brand-900 bg-brand-950 lg:hidden"
             >
               <div className="flex flex-col gap-1 p-3">
                 <button

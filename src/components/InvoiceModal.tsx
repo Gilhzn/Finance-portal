@@ -63,8 +63,8 @@ export default function InvoiceModal({
 
             {/* Document body */}
             <div className="p-6 sm:p-9">
-              <div className="flex items-start justify-between border-b-2 border-brand-900 pb-5">
-                <div>
+              <div className="flex flex-col gap-4 border-b-2 border-brand-900 pb-5 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
                   <Logo />
                   <div className="mt-3 text-xs leading-relaxed text-brand-600">
                     <div className="font-bold text-brand-900">{COMPANY.name}</div>
@@ -75,8 +75,8 @@ export default function InvoiceModal({
                     </div>
                   </div>
                 </div>
-                <div className="text-left">
-                  <div className="text-xl font-black text-brand-950">
+                <div className="shrink-0 text-right sm:text-left">
+                  <div className="text-xl font-extrabold text-brand-950">
                     {isCredit ? 'תעודת זיכוי' : 'חשבונית מס'}
                   </div>
                   <div className="num mt-1 text-lg font-bold text-brand-700">{invoice.id}</div>
@@ -153,7 +153,7 @@ export default function InvoiceModal({
                     <span>מע"מ 17%</span>
                     <span className="num font-semibold">{formatCurrency(invoice.vat)}</span>
                   </div>
-                  <div className="flex justify-between border-t-2 border-brand-900 pt-2 text-base font-black text-brand-950">
+                  <div className="flex justify-between border-t-2 border-brand-900 pt-2 text-base font-extrabold text-brand-950">
                     <span>סה"כ לתשלום</span>
                     <span className="num">{formatCurrency(invoice.total)}</span>
                   </div>

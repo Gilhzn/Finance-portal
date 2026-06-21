@@ -83,19 +83,19 @@ export default function AgingView({ onOpenInvoice }: { onOpenInvoice: (inv: Invo
                     isOpen && 'rotate-180',
                   )}
                 />
-                <div className="w-28 shrink-0">
-                  <div className="font-bold text-brand-950">{bucket.label}</div>
+                <div className="w-24 shrink-0 sm:w-28">
+                  <div className="truncate font-bold text-brand-950">{bucket.label}</div>
                   <span className={cx('inline-flex rounded-full px-2 py-0.5 text-[11px] font-bold', sev.chip)}>
                     {sev.label}
                   </span>
                 </div>
-                <div className="hidden flex-1 sm:block">
-                  <div className={cx('h-2.5 w-full overflow-hidden rounded-full', sev.track)}>
+                <div className="flex-1">
+                  <div className={cx('hidden h-2.5 w-full overflow-hidden rounded-full sm:block', sev.track)}>
                     <div className={cx('h-full rounded-full', sev.bar)} style={{ width: `${pct}%` }} />
                   </div>
                 </div>
                 <div className="shrink-0 text-left">
-                  <div className="num text-lg font-extrabold text-brand-950">
+                  <div className="num text-base font-extrabold text-brand-950 sm:text-lg">
                     {formatCurrency(bucket.total)}
                   </div>
                   <div className="text-[11px] text-brand-500">{bucket.invoiceIds.length} מסמכים</div>
@@ -122,17 +122,17 @@ export default function AgingView({ onOpenInvoice }: { onOpenInvoice: (inv: Invo
                             onClick={() => onOpenInvoice(inv)}
                             className="flex min-h-[52px] w-full items-center justify-between gap-3 px-4 py-3 text-right transition-colors hover:bg-white sm:px-6"
                           >
-                            <div className="min-w-0">
-                              <div className="num text-sm font-bold text-brand-900">{inv.id}</div>
+                            <div className="min-w-0 flex-1">
+                              <div className="num truncate text-sm font-bold text-brand-900">{inv.id}</div>
                               <div className="truncate text-xs text-brand-500">{inv.customerName}</div>
                             </div>
-                            <div className="flex items-center gap-3">
+                            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
                               {od > 0 && (
                                 <span className="num hidden rounded-full bg-rose-50 px-2 py-0.5 text-[11px] font-bold text-rose-600 sm:inline">
                                   {od} ימי איחור
                                 </span>
                               )}
-                              <span className="num text-sm font-extrabold text-brand-950">
+                              <span className="num text-sm font-bold text-brand-950">
                                 {formatCurrency(inv.openAmount)}
                               </span>
                               <StatusBadge status={inv.status} />

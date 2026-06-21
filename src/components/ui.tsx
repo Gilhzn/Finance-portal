@@ -134,7 +134,7 @@ export function ViewHeader({
           </div>
         )}
         <div>
-          <h1 className="text-2xl font-black tracking-tight text-brand-950 sm:text-3xl">{title}</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-brand-950 sm:text-3xl">{title}</h1>
           {subtitle && <p className="mt-0.5 text-sm font-medium text-brand-500">{subtitle}</p>}
         </div>
       </div>
@@ -178,7 +178,7 @@ export function StatTile({
       )}
       <div className="min-w-0">
         <div className="truncate text-xs font-semibold text-brand-500">{label}</div>
-        <div className={cx('mt-0.5 text-xl font-extrabold sm:text-2xl', toneCls, mono && 'num')}>
+        <div className={cx('mt-0.5 text-lg font-bold sm:text-xl', toneCls, mono && 'num')}>
           {value}
         </div>
       </div>

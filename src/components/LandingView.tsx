@@ -49,10 +49,10 @@ export default function LandingView({ onNavigate }: { onNavigate: (v: ViewKey) =
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
           {COMPANY.slogan}
         </div>
-        <h1 className="text-4xl font-black tracking-tight text-brand-950 sm:text-6xl">
+        <h1 className="text-3xl font-extrabold tracking-tight text-brand-950 sm:text-5xl">
           פורטל הלקוחות הפיננסי
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-brand-500 sm:text-base">
+        <p className="mx-auto mt-4 max-w-2xl text-sm font-normal leading-relaxed text-brand-500 sm:text-base">
           מערכת מאובטחת לניהול יתרות, גיול חובות, מסמכי מקור ורכש סיטונאי — {COMPANY.name}
         </p>
       </motion.div>
@@ -105,7 +105,7 @@ export default function LandingView({ onNavigate }: { onNavigate: (v: ViewKey) =
                 <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/15 shadow-lg backdrop-blur-md">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h2 className="text-2xl font-black">{r.title}</h2>
+                <h2 className="text-2xl font-extrabold">{r.title}</h2>
                 <p className="mt-1 max-w-sm text-sm text-brand-100">{r.desc}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-200 transition-all group-hover:gap-3 group-hover:text-white">
                   כניסה למערכת
@@ -150,7 +150,7 @@ function StatPill({
       )}
       <div className="min-w-0">
         <div className="truncate text-xs font-semibold text-brand-500">{label}</div>
-        <div className={`num mt-0.5 text-lg font-extrabold sm:text-2xl ${toneCls}`}>{value}</div>
+        <div className={`num mt-0.5 text-base font-bold sm:text-xl ${toneCls}`}>{value}</div>
       </div>
     </div>
   );
