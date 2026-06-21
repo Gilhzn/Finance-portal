@@ -83,14 +83,18 @@ export default function App() {
   return (
     <div className="min-h-screen bg-brand-50 text-brand-950">
       {/* ---- Top navigation ---- */}
-      <header className="no-print sticky top-0 z-40 border-b border-brand-900/40 bg-brand-950 text-white">
+      <header className="no-print sticky top-0 z-40 border-b border-white/10 bg-brand-950/95 text-white shadow-[0_4px_24px_-8px_rgba(10,19,38,0.5)] backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-          <button onClick={() => navigate('landing')} className="shrink-0">
+          <button
+            onClick={() => navigate('landing')}
+            className="shrink-0 rounded-lg transition-transform duration-150 hover:scale-[1.02]"
+            aria-label="דף הבית"
+          >
             <Logo light />
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-0.5 md:flex">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
               const active = view === item.key;
@@ -98,15 +102,23 @@ export default function App() {
                 <button
                   key={item.key}
                   onClick={() => navigate(item.key)}
+                  aria-current={active ? 'page' : undefined}
                   className={cx(
-                    'inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-colors',
+                    'relative inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-150',
                     active
-                      ? 'bg-brand-500 text-white'
-                      : 'text-brand-200 hover:bg-brand-900 hover:text-white',
+                      ? 'bg-white/10 text-white'
+                      : 'text-brand-300 hover:bg-white/5 hover:text-white',
                   )}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className={cx('h-4 w-4', active ? 'text-brand-300' : '')} />
                   {item.label}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-brand-400"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
                 </button>
               );
             })}
@@ -165,7 +177,19 @@ export default function App() {
       </header>
 
       {/* ---- Main content ---- */}
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">{renderView()}</main>
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={view}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+          >
+            {renderView()}
+          </motion.div>
+        </AnimatePresence>
+      </main>
 
       {/* ---- Footer (demo banner) ---- */}
       <footer className="no-print mt-8 border-t border-brand-100 bg-brand-950 text-brand-300">

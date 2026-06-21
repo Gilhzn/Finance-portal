@@ -7,24 +7,52 @@ import type { ReactNode } from 'react';
 import { cx } from '../utils';
 import type { InvoiceStatus, DeliveryStatus } from '../types';
 
+/** Crisp SVG brand mark — a navy badge with an ascending finance bar-chart and
+ *  an emerald growth accent. Scales sharply at any size. */
+export function BrandMark({ size = 38 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 40 40"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <defs>
+        <linearGradient id="bm-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#1a2f54" />
+          <stop offset="1" stopColor="#0a1326" />
+        </linearGradient>
+      </defs>
+      <rect width="40" height="40" rx="11" fill="url(#bm-bg)" />
+      <rect x="0.5" y="0.5" width="39" height="39" rx="10.5" stroke="#ffffff" strokeOpacity="0.08" />
+      {/* ascending bars */}
+      <rect x="9" y="22" width="4.4" height="9" rx="1.4" fill="#6282b8" />
+      <rect x="17.8" y="17" width="4.4" height="14" rx="1.4" fill="#b4c6e1" />
+      <rect x="26.6" y="11" width="4.4" height="20" rx="1.4" fill="#ffffff" />
+      {/* growth accent dot */}
+      <circle cx="28.8" cy="9.2" r="2.6" fill="#16a34a" stroke="#0a1326" strokeWidth="1.4" />
+    </svg>
+  );
+}
+
 /** Company wordmark used in the header and document headers. */
 export function Logo({ light = false }: { light?: boolean }) {
   return (
     <div className="flex items-center gap-2.5">
-      <div
-        className={cx(
-          'flex h-9 w-9 items-center justify-center rounded-xl font-black text-lg',
-          light ? 'bg-white text-brand-950' : 'bg-brand-950 text-white',
-        )}
-      >
-        ח
-      </div>
+      <BrandMark />
       <div className="leading-tight">
-        <div className={cx('text-sm font-extrabold', light ? 'text-white' : 'text-brand-950')}>
+        <div className={cx('text-sm font-extrabold tracking-tight', light ? 'text-white' : 'text-brand-950')}>
           חלפים לישראל
         </div>
-        <div className={cx('text-[10px] font-medium', light ? 'text-brand-200' : 'text-brand-500')}>
-          פורטל פיננסי B2B
+        <div
+          className={cx(
+            'text-[10px] font-semibold uppercase tracking-[0.12em]',
+            light ? 'text-brand-300' : 'text-brand-500',
+          )}
+        >
+          Financial Portal
         </div>
       </div>
     </div>
@@ -35,16 +63,20 @@ export function Logo({ light = false }: { light?: boolean }) {
 export function Card({
   children,
   className,
+  hover = false,
   as: Tag = 'div',
 }: {
   children: ReactNode;
   className?: string;
+  hover?: boolean;
   as?: 'div' | 'section' | 'article';
 }) {
   return (
     <Tag
       className={cx(
-        'rounded-2xl border border-brand-100 bg-white shadow-[var(--shadow-premium)]',
+        'rounded-2xl border border-brand-100/80 bg-white shadow-[var(--shadow-premium)]',
+        hover &&
+          'transition-shadow duration-200 hover:border-brand-200 hover:shadow-[var(--shadow-luxurious)]',
         className,
       )}
     >
@@ -97,12 +129,12 @@ export function ViewHeader({
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div className="flex items-center gap-3">
         {icon && (
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-900 text-white">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-800 to-brand-950 text-white shadow-[var(--shadow-premium)] ring-1 ring-white/10">
             {icon}
           </div>
         )}
         <div>
-          <h1 className="text-2xl font-black text-brand-950 sm:text-3xl">{title}</h1>
+          <h1 className="text-2xl font-black tracking-tight text-brand-950 sm:text-3xl">{title}</h1>
           {subtitle && <p className="mt-0.5 text-sm font-medium text-brand-500">{subtitle}</p>}
         </div>
       </div>
@@ -117,11 +149,13 @@ export function StatTile({
   value,
   tone = 'neutral',
   mono = true,
+  icon,
 }: {
   label: string;
   value: string;
   tone?: 'neutral' | 'danger' | 'success' | 'brand';
   mono?: boolean;
+  icon?: ReactNode;
 }) {
   const toneCls = {
     neutral: 'text-brand-950',
@@ -129,11 +163,24 @@ export function StatTile({
     success: 'text-emerald-600',
     brand: 'text-brand-700',
   }[tone];
+  const accent = {
+    neutral: 'bg-brand-100 text-brand-700',
+    danger: 'bg-rose-50 text-rose-600',
+    success: 'bg-emerald-50 text-emerald-600',
+    brand: 'bg-brand-100 text-brand-700',
+  }[tone];
   return (
-    <Card className="p-4">
-      <div className="text-xs font-semibold text-brand-500">{label}</div>
-      <div className={cx('mt-1 text-xl font-extrabold sm:text-2xl', toneCls, mono && 'num')}>
-        {value}
+    <Card className="flex items-center gap-3 p-4">
+      {icon && (
+        <div className={cx('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', accent)}>
+          {icon}
+        </div>
+      )}
+      <div className="min-w-0">
+        <div className="truncate text-xs font-semibold text-brand-500">{label}</div>
+        <div className={cx('mt-0.5 text-xl font-extrabold sm:text-2xl', toneCls, mono && 'num')}>
+          {value}
+        </div>
       </div>
     </Card>
   );
@@ -156,7 +203,7 @@ export function PrimaryButton({
       type={type}
       onClick={onClick}
       className={cx(
-        'inline-flex items-center justify-center gap-2 rounded-xl bg-brand-900 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-800 active:bg-brand-950',
+        'inline-flex items-center justify-center gap-2 rounded-xl bg-brand-900 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-all duration-150 hover:bg-brand-800 hover:shadow-md active:scale-[0.98] active:bg-brand-950',
         className,
       )}
     >
@@ -180,7 +227,7 @@ export function SecondaryButton({
       type="button"
       onClick={onClick}
       className={cx(
-        'inline-flex items-center justify-center gap-2 rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-sm font-bold text-brand-700 transition-colors hover:border-brand-300 hover:bg-brand-50',
+        'inline-flex items-center justify-center gap-2 rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-sm font-bold text-brand-700 transition-all duration-150 hover:border-brand-300 hover:bg-brand-50 active:scale-[0.98]',
         className,
       )}
     >

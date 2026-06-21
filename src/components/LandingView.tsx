@@ -4,10 +4,11 @@
  */
 
 import { motion } from 'motion/react';
-import { ArrowLeft, Wallet, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Wallet, ShoppingCart, FileText, Clock, TrendingDown } from 'lucide-react';
 import type { ViewKey } from '../types';
 import { formatCurrency } from '../utils';
 import { COMPANY, TOTAL_OPEN_BALANCE, OPEN_INVOICES, DELIVERY_NOTES } from '../data';
+import { BrandMark } from './ui';
 
 const ROUTES: {
   target: ViewKey;
@@ -37,28 +38,51 @@ const ROUTES: {
 export default function LandingView({ onNavigate }: { onNavigate: (v: ViewKey) => void }) {
   return (
     <div>
-      <div className="mb-8 text-center">
-        <div className="mb-2 inline-flex items-center rounded-full bg-brand-100 px-3 py-1 text-xs font-bold text-brand-700">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-10 flex flex-col items-center text-center"
+      >
+        <BrandMark size={56} />
+        <div className="mt-4 mb-3 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/70 px-3.5 py-1 text-xs font-bold text-brand-700 shadow-[var(--shadow-premium)] backdrop-blur">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
           {COMPANY.slogan}
         </div>
-        <h1 className="text-3xl font-black text-brand-950 sm:text-5xl">פורטל הלקוחות הפיננסי</h1>
-        <p className="mx-auto mt-3 max-w-2xl text-sm font-medium text-brand-500 sm:text-base">
+        <h1 className="text-4xl font-black tracking-tight text-brand-950 sm:text-6xl">
+          פורטל הלקוחות הפיננסי
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-brand-500 sm:text-base">
           מערכת מאובטחת לניהול יתרות, גיול חובות, מסמכי מקור ורכש סיטונאי — {COMPANY.name}
         </p>
-      </div>
+      </motion.div>
 
       {/* Quick stats */}
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <StatPill label="יתרה פתוחה כוללת" value={formatCurrency(TOTAL_OPEN_BALANCE)} tone="danger" />
-        <StatPill label="מסמכים פתוחים" value={String(OPEN_INVOICES.length)} />
+        <StatPill
+          label="יתרה פתוחה כוללת"
+          value={formatCurrency(TOTAL_OPEN_BALANCE)}
+          tone="danger"
+          icon={<TrendingDown className="h-5 w-5" />}
+        />
+        <StatPill
+          label="מסמכים פתוחים"
+          value={String(OPEN_INVOICES.length)}
+          icon={<FileText className="h-5 w-5" />}
+        />
         <StatPill
           label="תעודות ממתינות"
           value={String(DELIVERY_NOTES.filter((d) => d.status === 'pending').length)}
           tone="warning"
+          icon={<Clock className="h-5 w-5" />}
         />
       </div>
 
       {/* Route cards */}
+      <div className="mb-3 flex items-center gap-3">
+        <span className="text-sm font-bold text-brand-700">בחר/י גזרת עבודה</span>
+        <span className="h-px flex-1 bg-brand-200/70" />
+      </div>
       <div className="grid gap-5 lg:grid-cols-2">
         {ROUTES.map((r) => {
           const Icon = r.icon;
@@ -75,9 +99,10 @@ export default function LandingView({ onNavigate }: { onNavigate: (v: ViewKey) =
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-900/40 to-brand-900/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/55 to-brand-900/10" />
+              <div className="absolute inset-x-0 top-0 h-px bg-white/15" />
               <div className="absolute inset-0 flex flex-col justify-end p-7 text-white">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/15 shadow-lg backdrop-blur-md">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h2 className="text-2xl font-black">{r.title}</h2>
@@ -99,20 +124,34 @@ function StatPill({
   label,
   value,
   tone = 'neutral',
+  icon,
 }: {
   label: string;
   value: string;
   tone?: 'neutral' | 'danger' | 'warning';
+  icon?: React.ReactNode;
 }) {
   const toneCls = {
     neutral: 'text-brand-950',
     danger: 'text-rose-600',
     warning: 'text-orange-600',
   }[tone];
+  const accent = {
+    neutral: 'bg-brand-100 text-brand-700',
+    danger: 'bg-rose-50 text-rose-600',
+    warning: 'bg-orange-50 text-orange-600',
+  }[tone];
   return (
-    <div className="rounded-2xl border border-brand-100 bg-white p-4 shadow-[var(--shadow-premium)]">
-      <div className="text-xs font-semibold text-brand-500">{label}</div>
-      <div className={`num mt-1 text-lg font-extrabold sm:text-2xl ${toneCls}`}>{value}</div>
+    <div className="flex items-center gap-3 rounded-2xl border border-brand-100/80 bg-white p-4 shadow-[var(--shadow-premium)]">
+      {icon && (
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${accent}`}>
+          {icon}
+        </div>
+      )}
+      <div className="min-w-0">
+        <div className="truncate text-xs font-semibold text-brand-500">{label}</div>
+        <div className={`num mt-0.5 text-lg font-extrabold sm:text-2xl ${toneCls}`}>{value}</div>
+      </div>
     </div>
   );
 }

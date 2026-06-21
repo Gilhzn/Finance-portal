@@ -51,7 +51,7 @@ export default function MenuView({
       {/* Central info card (right side in RTL) */}
       <div className="lg:col-span-5">
         <Card className="overflow-hidden">
-          <div className="bg-brand-950 p-6 text-white">
+          <div className="bg-gradient-to-br from-brand-800 via-brand-900 to-brand-950 p-6 text-white">
             <div className="text-xs font-semibold text-brand-300">חשבון ראשי</div>
             <div className="mt-1 text-xl font-black">{ACCOUNT.name}</div>
             <div className="num mt-0.5 text-xs text-brand-300">ע.מ {ACCOUNT.taxId}</div>
